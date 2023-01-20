@@ -1,11 +1,22 @@
 import './scss/main.scss';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+const initialState = {
+	value: 0
+}
 
-import App from "./components/app";
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'INC':
+			return { ...state, value: state.value + 1 };
+		default:
+			return state;
+	}
+};
 
-ReactDOM.render(
-	<App />,
-	document.getElementById('root')
-);
+let state = reducer(initialState, {});
+
+state = reducer(state, { type: 'INC' });
+console.log(state);
+
+state = reducer(state, { type: 'INC' });
+console.log(state);
