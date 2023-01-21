@@ -1,52 +1,33 @@
 import './scss/main.scss';
 
-import { createStore } from "redux";
-
-const initialState = {
-	value: 0
-};
-
-const reducer = (state = initialState, action) => {
-	switch (action.type) {
-		case 'INC':
-			return { ...state, value: state.value + 1 };
-		case 'DEC':
-			return { ...state, value: state.value - 1 };
-		case 'RND':
-			return { ...state, value: state.value + action.payload };
-		default:
-			return state;
-	}
-};
+import { createStore, bindActionCreators } from "redux";
+import reducer from "./reducer";
+import * as actions from './actions';
 
 const store = createStore(reducer);
+const { dispatch, getState, subscribe } = store;
+
+const { inc, dec, rnd } = bindActionCreators(actions, dispatch)
 
 document
 	.getElementById('inc')
-	.addEventListener('click', () => {
-		store.dispatch({ type: 'INC' })
-	});
+	.addEventListener('click', inc);
 
 document
 	.getElementById('dec')
-	.addEventListener('click', () => {
-		store.dispatch({ type: 'DEC' })
-	});
+	.addEventListener('click', dec);
 
 document
 	.getElementById('rnd')
 	.addEventListener('click', () => {
 		const payload = Math.floor(Math.random()*10+1); // extra param for action
-		store.dispatch({
-		 	type: 'RND',
-			payload
-		})
+		rnd(payload)
 	});
 
 const update = () => {
 	document
 		.getElementById('counter')
-		.innerHTML = store.getState().value;
+		.innerHTML = getState().value;
 };
 
-store.subscribe(update);
+subscribe(update);
