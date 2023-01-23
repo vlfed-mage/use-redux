@@ -1,4 +1,4 @@
-# Webpack 5 boilerplate
+# Redux sandbox
 
 ![NODE Version Support](https://img.shields.io/node/v-lts/webpack?style=for-the-badge)
 
