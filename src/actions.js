@@ -1,6 +1,8 @@
-
 const inc = () => ({ type: 'INC' }),
 dec = () => ({ type: 'DEC' }),
-rnd = (random) => ({ type: 'RND', random });
+rnd = () => {
+    const random = Math.floor(Math.random()*10 + 1);
+    return { type: 'RND', random };
+};
 
 export { inc, dec, rnd };
